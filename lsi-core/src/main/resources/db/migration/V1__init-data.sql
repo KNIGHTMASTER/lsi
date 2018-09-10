@@ -1,0 +1,41 @@
+CREATE TABLE mst_interview_header (
+  id BIGINT(20) NOT NULL AUTO_INCREMENT,
+  code VARCHAR(50) DEFAULT NULL UNIQUE,
+  name VARCHAR(150) DEFAULT NULL,
+  status TINYINT(1) DEFAULT NULL,
+  remarks VARCHAR(255) DEFAULT NULL,
+  created_by VARCHAR(50) DEFAULT NULL,
+  created_on TIMESTAMP NULL DEFAULT NULL,
+  modified_by VARCHAR(50) DEFAULT NULL,
+  modified_on TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  user_id BIGINT(20) DEFAULT NULL ,
+  province_id BIGINT(20) DEFAULT NULL ,
+  city_id BIGINT(20) DEFAULT NULL ,
+  district_id BIGINT(20) DEFAULT NULL ,
+  village_id BIGINT(20) DEFAULT NULL ,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE mst_interview_detail (
+  id BIGINT(20) NOT NULL AUTO_INCREMENT,
+  code VARCHAR(50) DEFAULT NULL UNIQUE,
+  name VARCHAR(150) DEFAULT NULL,
+  status TINYINT(1) DEFAULT NULL,
+  remarks VARCHAR(255) DEFAULT NULL,
+  created_by VARCHAR(50) DEFAULT NULL,
+  created_on TIMESTAMP NULL DEFAULT NULL,
+  modified_by VARCHAR(50) DEFAULT NULL,
+  modified_on TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  latitude DOUBLE(10, 2) DEFAULT NULL ,
+  longitude DOUBLE(10, 2) DEFAULT NULL ,
+  interview_status VARCHAR(6) DEFAULT NULL ,
+  respondent_name VARCHAR(150) DEFAULT NULL ,
+  respondent_age INTEGER DEFAULT NULL ,
+  respondent_gender TINYINT(1) DEFAULT NULL ,
+  respondent_religion VARCHAR(6) DEFAULT NULL ,
+  interview_timestamp TIMESTAMP NULL DEFAULT NULL ,
+  interview_header_id BIGINT(20) DEFAULT NULL,
+  KEY fk_interview_header (interview_header_id) USING BTREE,
+  CONSTRAINT cs_interview_detail_header FOREIGN KEY (interview_header_id) REFERENCES mst_interview_header (id) ON DELETE CASCADE ON UPDATE CASCADE,
+  PRIMARY KEY (id)
+);

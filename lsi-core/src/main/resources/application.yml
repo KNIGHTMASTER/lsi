@@ -1,0 +1,167 @@
+#============================================================================
+# SERVER
+#============================================================================
+server:
+  port: 8081
+  context-path: /lsi-core
+  #session:
+    #timeout: 10         # session timeout in second
+    #cookie:
+      #max-age: 10     # Maximum age of the session cookie in seconds. also add if server.session.timeout not working
+
+#============================================================================
+# SPRING
+#============================================================================
+spring:
+  application:
+    name : lsi-core
+#  profiles:
+#    active : local
+  datasource:
+    driver-class-name : com.mysql.jdbc.Driver
+    url : jdbc:mysql://${db.host}:${db.port}/${db.name}?autoReconnect=${db.auto-reconnect}&useSSL=${db.ssl}
+    username : ${db.username}
+    password : ${db.password}
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+      dialect : org.hibernate.dialect.MySQL5Dialect
+      ddl-auto : validate     # Hibernate ddl auto (create, create-drop, validate, update)
+
+#============================================================================
+# DATABASE
+#============================================================================
+db:
+  name : lsi_core
+  host : localhost
+  port : 3306
+  username : root
+  password : P@ssw0rd
+  auto-reconnect : true
+  ssl : false
+
+#============================================================================
+# ACTUATOR
+#============================================================================
+management:
+  context-path : /actuator
+  security:
+    enabled: false
+    roles: ROLE_ACTUATOR
+
+#============================================================================
+# FEIGN
+#============================================================================
+base:
+  url:
+    local:
+      host: localhost
+      actuator : /
+
+#============================================================================
+# LOGGER
+#============================================================================
+logging:
+  config: classpath:logback-spring.xml
+  file : ${log.file.path}
+  level:
+    com.wissensalt.scaffolding.client: DEBUG
+  api :
+    base-path : ${log.base.path}
+
+#============================================================================
+# LOG FILE
+#============================================================================
+log :
+  file :
+    path : /home/fauzi/LSI/CORE/lsi-core.log
+  base:
+    path : http://localhost:9002/lsi-api-logger
+
+#============================================================================
+# THREAD
+#============================================================================
+thread:
+  corepoolsize : 1
+  maxpoolsize : 5
+  queuecapacity : 10
+
+
+#============================================================================
+# RABBIT MQ
+#============================================================================
+#rabbitmq:
+#  fanout:
+#    exchange:
+#      api-logger : fanout-exchange-api-logger
+#      auth-logger : fanout-exchange-auth-logger
+#
+#spring:
+#  rabbitmq:
+#    host : 127.0.0.1
+#    port : 5672
+#    username : guest
+#    password : guest
+
+
+#============================================================================
+# JWT
+#============================================================================
+jwt:
+  secret: my-secret-app
+  header: x-auth-token
+# expiration in seconds
+  expiration: 1800
+  refresh-multiplier: 3
+  cookie : JWT-AUTH
+
+#============================================================================
+# OAUTH
+#============================================================================
+oauth:
+  resource-id : server_resource_id
+  token-validity-in-seconds : 1800
+
+
+#============================================================================
+# SWAGGER
+#============================================================================
+swagger :
+  vendor :
+    name : Lsi
+    value : 1.0.0
+  metadata :
+    title : LSI - CORE
+    description : Core Services for Lsi
+    version : 1.0.0
+    tos : This Documentation is Only Available on Development Phase
+    license : Apache License Version 2.0
+    license-url : https://www.apache.org/licenses/LICENSE-2.0
+    contact :
+      name : Achmad Fauzi
+      url : https://tripoin.co.id
+      email : fauzi.knightmaster.achmad@gmail.com
+
+#============================================================================
+# DISCOVERY CLIENT
+#============================================================================
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
+#    registerWithEureka: true
+#    fetchRegistry: true
+#  instance :
+#    home-page-url : http://localhost:10002/
+#    status-page-url-path : http://localhost:10002/actuator/info
+#    health-check-url-path : http://localhost:10002/actuator/health
+
+#============================================================================
+# INFO
+#============================================================================
+#info:
+#  app:
+#    name: Plustix Security OAuth 2.0
+#    description: API for Authentication Service
+#    version: 1.0.0
