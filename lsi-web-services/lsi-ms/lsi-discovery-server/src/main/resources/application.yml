@@ -1,0 +1,62 @@
+#============================================================================
+# SPRING
+#============================================================================
+spring:
+  profiles :
+    active : local
+  application:
+    name: discovery-server
+  boot:
+    admin:
+      url: http://localhost:8989
+      username: admin
+      password: password
+
+#============================================================================
+# SERVER
+#============================================================================
+server:
+  port: 8761
+
+#============================================================================
+# LOGGER
+#============================================================================
+logging:
+  config: classpath:logback-spring.xml
+  file : ${log.file.path}
+
+#============================================================================
+# LOG FILE
+#============================================================================
+log :
+  file :
+    path : /home/fauzi/PLUSTIX/DISCOVERY/plustix-discovery.log
+
+#============================================================================
+# EUREKA
+#============================================================================
+eureka:
+  instance:
+    hostname: localhost
+    preferIpAddress: false
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      default-zone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+#============================================================================
+# ACTUATOR
+#============================================================================
+management:
+  security:
+    enabled: false
+
+#============================================================================
+# INFO
+#============================================================================
+info:
+  app:
+    name: Discovery Server Application
+    description: Discovery Server Application
+    version: 1.0.0

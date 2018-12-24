@@ -1,0 +1,40 @@
+#============================================================================
+# SERVER
+#============================================================================
+server:
+  port: 8085
+
+#============================================================================
+# SPRING
+#============================================================================
+spring:
+  datasource:
+    driver-class-name : com.mysql.jdbc.Driver
+    url : jdbc:mysql://${db.host}:${db.port}/${db.name}?autoReconnect=${db.auto-reconnect}&useSSL=${db.ssl}
+    username : ${db.username}
+    password : ${db.password}
+  jpa:
+    show-sql: false
+    properties:
+          hibernate:
+            dialect : org.hibernate.dialect.MySQL5Dialect
+            ddl-auto : validate     # Hibernate ddl auto (create, create-drop, validate, update)
+
+#============================================================================
+# DATABASE
+#============================================================================
+db:
+  name : lsi_security
+  host : localhost
+  port : 3306
+  username : trplsi
+  password : trplsi0123()**!
+  auto-reconnect : true
+  ssl : false
+
+#============================================================================
+# LOGGER
+#============================================================================
+logging:
+  api :
+    base-path : /home

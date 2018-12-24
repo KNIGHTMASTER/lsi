@@ -1,0 +1,116 @@
+#============================================================================
+# SERVER
+#============================================================================
+server:
+  port: 9001
+  context-path: /lsi-api-logger
+
+#============================================================================
+# MONGO DB
+#============================================================================
+spring:
+  application:
+    name: plustix-api-logger
+  profiles :
+    active : dev
+  data:
+    mongodb:
+      repositories : ${db.repositories}
+      host: ${db.host}
+      port: ${db.port}
+      database: ${db.name}
+      authentication-database: ${db.authentication-database}
+      username: ${db.username}
+      password: ${db.password}
+  rabbitmq:
+    host : ${rabbitmq.host}
+    port : ${rabbitmq.port}
+    username : ${rabbitmq.username}
+    password : ${rabbitmq.password}
+
+#============================================================================
+# DB
+#============================================================================
+db:
+  name : lsi-log
+  host : localhost
+  port : 8085
+  database : lsi-log
+  authentication-database : admin
+  username : mongo
+  password : trplsimng0123#!
+  repositories : true
+
+#============================================================================
+# LOGGING
+#============================================================================
+logging:
+  config: classpath:logback-spring.xml
+  file : ${log.file.path}
+  level:
+    org.springframework.data: info
+
+#============================================================================
+# LOG FILE
+#============================================================================
+log :
+  file :
+    path : /home/fauzi/PLUSTIX/API-LOGGER/plustix-api-logger.log
+
+
+#============================================================================
+# RABBIT MQ
+#============================================================================
+rabbitmq:
+  host : 127.0.0.1
+  port : 5672
+  username : guest
+  password : guest
+  fanout:
+    exchange:
+      api-logger : fanout-exchange-api-logger
+      jwt-logger : fanout-exchange-jwt-logger
+      auth-logger : fanout-exchange-auth-logger
+  queue :
+    api-logger : queue-api-logger
+    jwt-logger : queue-jwt-logger
+    auth-logger : queue-auth-logger
+
+
+#============================================================================
+# SWAGGER
+#============================================================================
+swagger :
+  vendor :
+    name : Lsi
+    value : 1.0.0
+  metadata :
+    title : Api Logger
+    description : Api Logger for Microservices Projects
+    version : 1.0.0
+    tos : This Documentation is Only Available on Development Phase
+    license : Apache License Version 2.0
+    license-url : https://www.apache.org/licenses/LICENSE-2.0
+    contact :
+      name : Achmad Fauzi
+      url : https://tripoin.co.id
+      email : fauzi.knightmaster.achmad@gmail.com
+
+#============================================================================
+# EUREKA
+#============================================================================
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
+#    registerWithEureka: true
+#    fetchRegistry: true
+
+#============================================================================
+# INFO
+#============================================================================
+#info:
+#  app:
+#    name: API Logger Application
+#    description: API for Logging Any Services within Plustix System
+#    version: 1.0.0

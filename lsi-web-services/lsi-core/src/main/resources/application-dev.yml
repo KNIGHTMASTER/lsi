@@ -1,0 +1,41 @@
+#============================================================================
+# DATABASE
+#============================================================================
+db:
+  name : lsi_core
+  host : localhost
+  port : 3306
+  username : root
+  password : P@ssw0rd
+  auto-reconnect : true
+  ssl : false
+
+#============================================================================
+# LOG FILE
+#============================================================================
+log :
+  file :
+    path : /home/fauzi/LSI/CORE/lsi-core.log
+  base:
+    path : http://localhost:9001/lsi-api-logger
+
+
+#============================================================================
+# OAUTH 2.0 | SSO
+#============================================================================
+security:
+  basic:
+    enabled: false
+  oauth2:
+    client:
+      clientId: app_client_id
+      clientSecret: my-secret-app
+      accessTokenUri: http://localhost:10002/lsi-security-oauth2/oauth/token
+      userAuthorizationUri: http://localhost:10002/lsi-security-oauth2/oauth/authorize
+    resource:
+      userInfoUri: http://localhost:10002/lsi-security-oauth2/principal/me
+
+feign:
+  acl :
+    api :
+      base-path : http://localhost:9002/lsi-acl

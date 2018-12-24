@@ -1,0 +1,105 @@
+#============================================================================
+# SPRING
+#============================================================================
+spring:
+  application:
+    name : plustix-api-gateway
+  profiles:
+    active : local
+  boot:
+    admin:
+      url: http://localhost:8989
+security :
+  basic :
+    enabled : false
+  user :
+    name : admin
+    password: password
+
+#============================================================================
+# SERVER
+#============================================================================
+server:
+  port: 4444
+
+#============================================================================
+# LOGGER
+#============================================================================
+logging:
+  config: classpath:logback-spring.xml
+  file : ${log.file.path}
+
+#============================================================================
+# LOG FILE
+#============================================================================
+log :
+  file :
+    path : /home/fauzi/PLUSTIX/GATEWAY/plustix-gateway.log
+
+#============================================================================
+# ZUUL
+#============================================================================
+zuul:
+  sensitive-headers: Cookie, SetCookie
+#  add-proxy-headers: true
+  prefix: /gateway
+  host:
+    connect-timeout-millis: 60000
+    socket-timeout-millis: 60000
+    max-total-connections: 200
+    max-per-route-connections: 20
+    time-unit: MILLISECONDS
+    time-to-live: 10000
+  routes:
+    test:
+      path: /test-api/**
+      serviceId: test-api
+    plustix-security:
+      path: /security/**
+      serviceId: plustix-security-oauth2
+    plustix-api-logger:
+      path: /api-logger/**
+      serviceId: plustix-api-logger
+    plustix-acl:
+      path: /acl/**
+      serviceId: plustix-acl
+    plustix-admin:
+      path: /manager-admin/**
+      serviceId: plustix-manager-admin
+    plustix-schedule:
+      path: /manager-schedule/**
+      serviceId: plustix-manager-schedule
+    plustix-seat:
+      path: /manager-seat/**
+      serviceId: plustix-manager-seat
+    plustix-tariff:
+      path: /manager-tariff/**
+      serviceId: plustix-manager-tariff
+
+#============================================================================
+# EUREKA
+#============================================================================
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+    registerWithEureka: true
+    fetchRegistry: true
+
+#============================================================================
+# INFO
+#============================================================================
+info:
+  app:
+    name: API Gateway Application
+    description: Zuul API Gateway Application
+    version: 1.0.0
+
+#============================================================================
+# RIBBON FOR ZUUL
+#============================================================================
+ribbon:
+  eager-load:
+    enabled : true
+  ReadTimeout : 6000
+  ConnectTimeout : 6000

@@ -1,0 +1,67 @@
+#### START INSERT COMPANY ####
+INSERT INTO sec_company(code, name, status) VALUES ('com001', 'Company One', 1);
+#### END INSERT COMPANY ####
+
+#### START INSERT BRANCH ####
+INSERT INTO sec_branch(code, name, status, company_id) VALUES ('brc001', 'Branch One', 1, 1);
+#### END INSERT BRANCH ####
+
+
+#### START INSERT ROLE ####
+INSERT INTO sec_role (code, name, status) VALUES ('role001', 'ROLE_ADMIN', 1);
+INSERT INTO sec_role (code, name, status) VALUES ('role002', 'ROLE_USER', 1);
+INSERT INTO sec_role (code, name, status) VALUES ('role003', 'ROLE_ACTUATOR', 1);
+#### END INSERT ROLE ####
+
+#### START INSERT USER ####
+INSERT INTO sec_user (code, name, status, password, enabled, expired_date, account_non_locked, credentials_expired_date, branch_id) VALUES
+('admin', 'Admin', 1, 'admin123', true, '2018-12-11 11:01:36', true, '2018-12-11 11:01:36', 1);
+
+INSERT INTO sec_user (code, name, status, password, enabled, expired_date, account_non_locked, credentials_expired_date, branch_id) VALUES
+('user', 'User', 1, 'user123', true, '2018-12-11 11:01:36', true, '2018-06-12 11:01:36', 1);
+
+INSERT INTO sec_user (code, name, status, password, enabled, expired_date, account_non_locked, credentials_expired_date, branch_id) VALUES
+  ('actuator', 'Actuator', 1, 'actuator123', true, '2018-12-11 11:01:36', true, '2018-12-11 11:01:36', 1);
+#### END INSERT USER ####
+
+
+#### START INSERT CONTACT ####
+INSERT INTO mst_contact (code, name, status, first_name, last_name, personal_number, phone_number_1, email) VALUES
+  ('ct001', 'contact 1', 1, 'john', 'doe', '12345', '12345', 'john@gmail.com');
+
+INSERT INTO mst_contact (code, name, status, first_name, last_name, personal_number, phone_number_1, email) VALUES
+  ('ct002', 'contact 2', 1, 'fulan', 'fulan', '12345', '12345', 'fulan@gmail.com');
+
+INSERT INTO mst_contact (code, name, status, first_name, last_name, personal_number, phone_number_1, email) VALUES
+  ('ct003', 'contact 3', 1, 'fulan', 'fulan', '12345', '12345', 'fulan@gmail.com');
+#### END INSERT CONTACT ####
+
+
+#### START INSERT PROFILE ####
+INSERT into sec_user_profile (code, name, status, contact_id, user_id) VALUES
+  ('up001', 'profile admin', 1, 1, 1);
+
+INSERT into sec_user_profile (code, name, status, contact_id, user_id) VALUES
+  ('up002', 'profile user', 1, 2, 2);
+
+INSERT into sec_user_profile (code, name, status, contact_id, user_id) VALUES
+  ('up003', 'profile actuator', 1, 3, 3);
+#### END INSERT PROFILE ####
+
+
+#### START INSERT LINK ####
+INSERT INTO link_user_role (user_id, role_id) VALUES (1, 1);
+INSERT INTO link_user_role (user_id, role_id) VALUES (2, 2);
+INSERT INTO link_user_role (user_id, role_id) VALUES (3, 3);
+#### END INSERT LINK ####
+
+
+#### START INSERT FUNCTION ####
+INSERT INTO sec_function (code, name, url, style, parent_id, function_order) VALUES ('fn0001', 'function one', '#', '#', NULL, 1);
+INSERT INTO sec_function (code, name, url, style, parent_id, function_order) VALUES ('fn0002', 'function two', '#', '#', 1, 2);
+#### END INSERT FUNCTION ####
+
+#### START INSERT FUNCTION ASSIGNMENT ####
+INSERT INTO sec_function_assignment (code, name, role_id, function_id) VALUES ('fa0001', 'function Assignment one', 1, 1);
+INSERT INTO sec_function_assignment (code, name, role_id, function_id) VALUES ('fa0002', 'function Assignment two', 1, 2);
+#### END INSERT FUNCTION ASSIGNMENT ####
